@@ -24,5 +24,10 @@
     dest: /etc/docker/daemon.json
     owner: root
     group: root
-  notify:
-    - Restart docker service
+  register: docker_daemon_conf
+
+- name: "Ensure docker service restarted"
+  service:
+    name: docker
+    state: restarted
+  when: docker_daemon_conf.changed
