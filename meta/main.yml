@@ -1,0 +1,17 @@
+---
+galaxy_info:
+  role_name: ansible-docker-role
+  author: Infloop
+  company: None
+  description: Role for docker deployment
+  license: Private
+  min_ansible_version: 2.4
+  platforms:
+    - name: EL
+      versions:
+        - 7
+        - 8
+dependencies:
+  - role: geerlingguy.repo-epel
+  - role: geerlingguy.docker
+

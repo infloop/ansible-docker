@@ -1,0 +1,28 @@
+---
+- name: "Ensure Docker(docker-{{ docker_edition }}) and docker-compose ({{ docker_docker_compose_version }}) are installed"
+- include_role:
+    name: geerlingguy.docker
+  vars:
+    docker_edition: 'ce'
+    docker_package: "docker-{{ docker_edition }}"
+    docker_package_state: present
+    docker_install_compose: true
+    docker_compose_version: "{{ docker_docker_compose_version }}"
+
+- name: "Ensure pip python modules for docker and docker-compose are installed"
+  pip:
+    name: "{{ item.name }}"
+    version: "{{ item.version }}"
+    state: present
+  with_items:
+    - { name: docker, version: "{{ docker_pip_version }}" }
+    - { name: docker-compose, version: "{{ docker_pip_compose_version }}" }
+
+- name: "Ensure docker.json config file is uploaded"
+  copy:
+    src: daemon.json
+    dest: /etc/docker/daemon.json
+    owner: root
+    group: root
+  notify:
+    - Restart docker service
