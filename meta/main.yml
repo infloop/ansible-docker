@@ -13,5 +13,6 @@ galaxy_info:
         - 8
 dependencies:
   - role: geerlingguy.repo-epel
+  - role: geerlingguy.pip
   - role: geerlingguy.docker
 
