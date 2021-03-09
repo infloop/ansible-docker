@@ -1,4 +1,8 @@
 ---
+- name: "Ensure python-pip is installed"
+  include_role:
+    name: geerlingguy.pip
+
 - name: "Ensure Docker(docker-{{ docker_edition }}) and docker-compose ({{ docker_docker_compose_version }}) are installed"
   include_role:
     name: geerlingguy.docker
